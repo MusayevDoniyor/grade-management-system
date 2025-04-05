@@ -50,7 +50,7 @@ router.post(
 
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect)
-      return response(res, 401, "User password is incorrect"); // 401 - Unauthorized
+      return response(res, 401, "User password is incorrect");
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
@@ -67,7 +67,12 @@ router.post(
 
     response(res, 200, null, {
       message: "User successfully logged in",
-      user: { fullname: user.fullname, email: user.email, role: user.role },
+      user: {
+        id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        role: user.role,
+      },
       token,
     });
   })
