@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const gradeSchema = new mongoose.Schema(
   {
-    teacher: {
+    subject: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Subject",
       required: true,
@@ -22,5 +22,5 @@ const gradeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Grade = mongoose.model("Subject", gradeSchema);
+const Grade = mongoose.model("Grade", gradeSchema);
 export default Grade;
