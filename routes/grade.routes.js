@@ -52,6 +52,29 @@ router.post(
 );
 
 router.get(
+  "/me",
+  protect,
+  errorHandler(async (req, res, next) => {
+    const student = req.user;
+
+    if (student.role !== "student") {
+      return response(res, 401, "You are not a student");
+    }
+
+    const grades = await Grade.find({ student: student.id }).populate(
+      "student",
+      "fullname"
+    );
+
+    return response(res, 200, null, {
+      message: "Grades fetched successfully",
+      student,
+      grades,
+    });
+  })
+);
+
+router.get(
   "/:id",
   protect,
   checkRole,
